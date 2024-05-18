@@ -1,6 +1,6 @@
 {
   "name": "diff-autoclose",
-  "displayName": "diff_autoclose",
+  "displayName": "diff-autoclose",
   "description": "Autoclose diff tab when losing focus",
   "version": "0.0.1",
   "engines": {
@@ -51,5 +51,11 @@
     "webpack-cli": "^5.1.4",
     "@vscode/test-cli": "^0.0.9",
     "@vscode/test-electron": "^2.3.9"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samkowskiykostya/diff_autoclose"
+  },
+  "icon": "images/diff-close.jpg",
+  "publisher": "TiX"
 }
