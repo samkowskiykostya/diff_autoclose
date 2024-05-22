@@ -10,7 +10,8 @@
 			"type": "extensionHost",
 			"request": "launch",
 			"args": [
-				"--extensionDevelopmentPath=${workspaceFolder}"
+				"--extensionDevelopmentPath=${workspaceFolder}",
+				"/home/max/w/bb/spark-dashboard"
 			],
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.js"

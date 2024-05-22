@@ -4,11 +4,7 @@ let workingTreeTab: vscode.Tab | undefined;
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
-        vscode.window.onDidChangeActiveTextEditor(() => {
-            checkDiffEditorFocus();
-        }),
-
-        vscode.window.tabGroups.onDidChangeTabs(() => {
+        vscode.window.onDidChangeActiveTextEditor((aa) => {
             checkDiffEditorFocus();
         }),
 
@@ -28,8 +24,9 @@ function checkDiffEditorFocus() {
         // console.log('Diff editor with specific substring is focused');
         workingTreeTab = activeTab;
     } else {
-        if (workingTreeTab && (!activeTab || !tabLabelMatchesAnySubstring(activeTab.label))) {
+        if (workingTreeTab && activeTab && !tabLabelMatchesAnySubstring(activeTab.label)) {
             // console.log('Diff editor with specific substring has lost focus');
+            console.log(workingTreeTab?.label, activeTab.label);
             closeWorkingTreeTab();
             workingTreeTab = undefined;
         }

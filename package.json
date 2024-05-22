@@ -2,7 +2,7 @@
   "name": "diff-autoclose",
   "displayName": "diff-autoclose",
   "description": "Autoclose diff tab when losing focus",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.89.0"
   },
