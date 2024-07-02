@@ -11,7 +11,7 @@
 			"request": "launch",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}",
-				"/home/max/w/bb/spark-dashboard"
+				"--folder-uri=/home/max/w/bb/spark-dashboard"
 			],
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.js"

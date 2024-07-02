@@ -47,12 +47,12 @@ function getConfiguredSubstrings(): string[] {
 async function closeWorkingTreeTab() {
     if (workingTreeTab) {
         try {
-            const tabGroup = vscode.window.tabGroups.all.find(group =>
-                group.tabs.includes(workingTreeTab!)
-            );
-            if (tabGroup) {
-                await vscode.window.tabGroups.close(workingTreeTab);
-                // console.log('Closed tab with specific substring');
+            for (const tabGroup of vscode.window.tabGroups.all) {
+                const tabToClose = tabGroup.tabs.find(tab => tab.label === workingTreeTab!.label);
+                if (tabToClose) {
+                    await vscode.window.tabGroups.close(tabToClose);
+                    break; // Exit the loop once the tab is closed
+                }
             }
         } catch (error) {
             console.error('Error closing tab:', error);
