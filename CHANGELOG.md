@@ -7,3 +7,7 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 ## [0.0.4]
 
 - Initial release
+
+## [0.0.5]
+
+- Added ability to disable autoclose for specific tabs
