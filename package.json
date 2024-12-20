@@ -25,7 +25,22 @@
           "description": "Comma-separated list of substrings to identify and close tabs."
         }
       }
-    }
+    },
+    "menus": {
+      "tab/context": [
+        {
+          "command": "diffAutoClose.toggleDoNotClose",
+          "group": "1_close",
+          "when": "tab"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "diffAutoClose.toggleDoNotClose",
+        "title": "Toggle Auto-Close on Focus Loss"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "yarn run package",

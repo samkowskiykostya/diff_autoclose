@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 
 let workingTreeTab: vscode.Tab | undefined;
+const doNotCloseTabs = new Set<string>();
 
 export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(
@@ -12,8 +13,30 @@ export function activate(context: vscode.ExtensionContext) {
             if (event.affectsConfiguration('diffAutoClose.substrings')) {
                 checkDiffEditorFocus();
             }
+        }),
+
+        vscode.commands.registerCommand('diffAutoClose.toggleDoNotClose', async (tab?: vscode.Tab) => {
+            if (!tab) {
+                tab = vscode.window.tabGroups.activeTabGroup.activeTab;
+            }
+            if (!tab) {
+                return;
+            }
+
+            const tabId = getTabId(tab);
+            if (doNotCloseTabs.has(tabId)) {
+                doNotCloseTabs.delete(tabId);
+                vscode.window.showInformationMessage(`Auto-close enabled for "${tab.label}"`);
+            } else {
+                doNotCloseTabs.add(tabId);
+                vscode.window.showInformationMessage(`Auto-close disabled for "${tab.label}"`);
+            }
         })
     );
+}
+
+function getTabId(tab: vscode.Tab): string {
+    return `${tab.group.viewColumn}_${tab.label}`;
 }
 
 function checkDiffEditorFocus() {
@@ -21,13 +44,13 @@ function checkDiffEditorFocus() {
     const activeTab = activeTabGroup.activeTab;
 
     if (activeTab && tabLabelMatchesAnySubstring(activeTab.label)) {
-        // console.log('Diff editor with specific substring is focused');
         workingTreeTab = activeTab;
     } else {
         if (workingTreeTab && activeTab && !tabLabelMatchesAnySubstring(activeTab.label)) {
-            // console.log('Diff editor with specific substring has lost focus');
-            console.log(workingTreeTab?.label, activeTab.label);
-            closeWorkingTreeTab();
+            const tabId = getTabId(workingTreeTab);
+            if (!doNotCloseTabs.has(tabId)) {
+                closeWorkingTreeTab();
+            }
             workingTreeTab = undefined;
         }
     }
